@@ -1,0 +1,115 @@
+drop table hw_1;
+create table hw_1 (
+name nchar(20),
+surname nchar(20),
+age number(2),
+birthDate date,
+grades number(4,2)
+);
+
+select name, surname, age, birthDate, grades from hw_1;
+
+desc hw_1;
+
+insert into hw_1 values 
+(
+'Nihat',
+'Ismayilov',
+18,
+to_date('03-08-2003', 'DD-MM-YYYY'),
+75.00
+);
+
+insert into hw_1 values 
+(
+'Ismayil',
+'Islamzade',
+18,
+to_date('01-02-2003', 'DD-MM-YYYY'),
+77.50
+);
+
+insert into hw_1 values 
+(
+'Huseyn',
+'Mammedli',
+18,
+to_date('02-03-2004', 'DD-MM-YYYY'),
+91.33
+);
+
+insert into hw_1 values 
+(
+'Royal',
+'Atakishiyev',
+18,
+to_date('03-04-2005', 'DD-MM-YYYY'),
+70.00
+);
+
+insert into hw_1 values 
+(
+'Murad',
+'Muradov',
+18,
+to_date('04-05-2006', 'DD-MM-YYYY'),
+71.00
+);
+
+select to_char(birthDate, 'DD.MM.YYYY') from hw_1;
+
+select to_char(birthDate, 'yyyy-mm-dd') from hw_1;
+
+select to_char(birthDate, 'MM.DD.YY hh:mm:ss') from hw_1;
+
+select to_char(birthDate, 'yyyy dd mm hh:mm:ss') from hw_1;
+
+select * from hw_1;
+
+drop table hw_1_grades;
+create table hw_1_grades(
+bigData number(4,2),
+techincalEnglish number(4,2),
+mobileDevelopment number(4,2),
+webDevelopment number(4,2)
+);
+
+-- insert into hw_1_grades values 
+-- (
+-- {12.22, 12.22, 12.22, 12.22},
+-- {12.22, 12.22, 12.22, 12.22}
+-- );
+
+desc hw_1_grades;
+
+insert into hw_1_grades VALUES ( 81.00, 91.00, 99.00, 88.00 );
+insert into hw_1_grades VALUES ( 80.00, 90.00, 98.00, 87.00 );
+insert into hw_1_grades VALUES ( 79.00, 89.00, 97.00, 86.00 );
+insert into hw_1_grades VALUES ( 78.00, 88.00, 96.00, 85.00 );
+insert into hw_1_grades VALUES ( 77.00, 87.00, 95.00, 84.00 );
+
+select bigData from hw_1_grades;
+
+select * from hw_1_grades;
+
+select mobileDevelopment+5 as upgradedGradesFromMobileDevelopment from hw_1_grades;
+
+select techincalEnglish - age as mixture from hw_1_grades, hw_1;
+
+select (bigData + techincalEnglish + mobileDevelopment + webDevelopment + grades)/5 as somethingComplicated from hw_1_grades, hw_1;
+
+select (bigData + techincalEnglish + mobileDevelopment + webDevelopment)/4 as averageGrades from hw_1_grades;
+
+desc hw_1;
+
+insert into hw_1 values (
+'New Guy',
+'New Surname',
+00,
+to_date('01-01-2001', 'mm-dd-yyyy'),
+00.00
+);
+
+select * from hw_1;
+
+
