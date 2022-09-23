@@ -1,130 +1,118 @@
-drop table hw_2;
-create table hw_2 (
-id number Primary Key,
-name nchar(20),
-surname nchar(20) Constraint surnameNotNull not null,
-age number(2) Constraint ageUniqueness Unique,
-birthDate date,
-grades number(4,2),
-Constraint nameUniqueness Unique(name)
+drop table students;
+create table students(
+s_id number Primary Key,
+s_name nchar(20),
+s_surname nchar(20),
+s_group_id number,
+-- Constraint secondFK Foreign Key(s_group_id) references groups(g_id) on delete set null
+Constraint secondFK Foreign Key(s_group_id) references groups(g_id) on delete cascade
 );
 
-drop table hw_2_2;
-create table hw_2_2 (
-employeeId number,
-employeeName nchar(20),
-employeeSurname nchar(20),
-employeeAge number(2),
-employeeManager nchar(20),
-employeeSalary number(4)
+insert into students values (
+1,
+'Nihat',
+'Ismayilov',
+1
 );
 
-select * from user_constraints;
-
-select * from user_constraints where lower(table_name) = 'hw_2_2';
-
-select owner from user_constraints where lower(table_name) = 'hw_2';
-
-desc hw_2_2;
-
-insert into hw_2_2 values (
+insert into students values (
 2,
-'SecondEmployee',
-'SecondSurname',
-19,
-'SecondManager',
-1300
+'Second',
+'Second Surname',
+1
 );
 
-insert into hw_2_2 values (
+insert into students values (
 3,
-'ThirdEmployee',
-'ThirdSurname',
-20,
-'FirstManager',
-1400
+'Third',
+'Third Surname',
+2
 );
 
-insert into hw_2_2 values (
+insert into students values (
 4,
-'FourthEmployee',
-'FourthSurname',
-21,
-'FourthManager',
-1500
+'Fourth',
+'Fourth Surname',
+2
 );
 
-insert into hw_2_2 values (
+insert into students values (
 5,
-'FifthEmployee',
-'FifthSurname',
-22,
-'FifthManager',
-1600
+'Fifth',
+'Fifth Surname',
+3
 );
 
-desc hw_2_2;
+drop table groups;
+create table groups(
+g_id number Primary Key,
+g_name nchar(20),
+g_department_id number,
+Constraint firstFK Foreign Key(g_department_id) references departments(d_id) on delete set null
+);
 
-alter table hw_2_2 modify employeeId constraint promary primary key;
+insert into groups values(
+1,
+'First Group',
+1
+);
 
-alter table hw_2_2 modify employeeName constraint restriction not null;
+insert into groups values(
+2,
+'Second Group',
+2
+);
 
-alter table hw_2_2 drop constraint promary;
+insert into groups values(
+3,
+'Third Group',
+3
+);
 
-alter table hw_2_2 add constraint promarySecond Primary Key(employeeId);
+insert into groups values(
+4,
+'Fourth Group',
+4
+);
 
--- alter table hw_2_2 add constraint includedSalary not null(employeeSalary); - wrong statement
+drop table departments;
+create table departments(
+d_id number Primary Key,
+d_name nchar(20)
+);
 
-alter table hw_2_2 modify employeeSalary constraint includedSalary not null;
+insert into departments values (
+1,
+'First Department'
+);
 
-alter table hw_2_2 drop contraint promarySecond;
+insert into departments values (
+2,
+'Second Department'
+);
 
-alter table hw_2_2 modify employeeAge constraint alwaysIncluded not null;
+insert into departments values (
+3,
+'Third Department'
+);
 
-alter table hw_2_2 add constraint oneManagerPerPerson unique(employeeManager);
+insert into departments values (
+4,
+'Fourth Department'
+);
 
-alter table hw_2_2 modify employeeManager constraint allEmployeesHaveManagers not null;
+select * from students;
+select * from groups;
+select * from departments;
 
-desc hw_2_2;
+-- as it contains foreign key we have to delete 'students' table, then 'groups' table - when we haven't included on delete
 
-alter table hw_2_2 drop constraint allEmployeesHaveManagers;
+-- when 'cascade' after deleting all elements with the same foreign key will be deleted
+delete groups where g_id = 1;
 
-alter table hw_2_2 drop constraint oneManagerPerPerson;
+drop table students;
 
-alter table hw_2_2 modify employeeManager constraint managersLastUpdate not null;
+-- whet 'set null', the item get null instead of deleted value
+delete departments where d_id = 2;
 
-alter table hw_2_2 add constraint firstUpdate Unique(employeeSurname);
-
-alter table hw_2_2 add constraint anyChange Unique(employeeName);
-
-alter table hw_2_2 drop constraint anyChange;
-
-alter table hw_2_2 add constraint oneMore Unique(employeeSalary);
-
-alter table hw_2_2 modify employeeSurname constraint additional not null;
-
-alter table hw_2_2 drop constraint additional;
-
-alter table hw_2_2 add constraint anything unique(employeeName);
-
-desc hw_2_2;
-
-alter table hw_2_2 drop constraint restriction;
-
-alter table hw_2_2 DROP CONSTRAINT includedSalary;
-
-ALTER TABLE HW_2_2 DROP CONSTRAINT alwaysIncluded;
-
-alter table hw_2_2 drop constraint managersLastUpdate;
-
-alter table hw_2_2 drop constraint firstUpdate;
-
-alter table hw_2_2 drop constraint oneMore;
-
-alter table hw_2_2 drop constraint anything;
-
-alter table hw_2_2 add constraint allRemovedNewOneAdded Unique(employeeId);
-
-alter table hw_2_2 modify (employeeName constraint notnul not null, employeeSurname constraint notnul2 not null);
-
-alter table hw_2_2 add (constraint lastUpdateIHope Unique(employeeManager), constraint nothingToSay Unique(employeeAge));
+drop table departments;
