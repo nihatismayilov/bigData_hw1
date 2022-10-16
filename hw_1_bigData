@@ -1,4 +1,3 @@
--- days between to dates
-select to_date('29-03-2003','dd-mm-yyyy')-to_date('13-10-2002','dd-mm-yyyy') from dual;
 
-select to_date('15-10-2002','dd-mm-yyyy')+level from dual connected by leveL<(select to_date('29-03-2003','dd-mm-yyyy')-to_date('15-10-2002','dd-mm-yyyy') from dual);
+-- last day of each month
+select distinct last_day(trunc(to_date('07-02-2021','dd-mm-yyyy'),'month')+level) from dual connected by level<1000;
