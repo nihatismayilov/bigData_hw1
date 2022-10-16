@@ -1,6 +1,2 @@
-select c.* ,rank()over(partition by filial_id order by amount) from contract c;
--- orders according to amount from low to high, if some elements contain same amount 'rank' gives them same rank (for example 1, 1, 1), however next one will be (4 instead of 2)
-
-select c.* ,dense_rank()over(partition by filial_id order by amount) from contract c;
--- in dense_rank even if there are more than 1 same ranked elements (for example 1, 1, 1) next one will be 2 ()
-select * from contract;
+-- first day of months
+select distinct last_day(trunc(to_date('07-12-2021','dd-mm-yyyy'),'month')+level)+1 from dual connected by level<1000;
